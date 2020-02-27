@@ -27,19 +27,30 @@ function indexToCoords(idx)
     return 1 + (zidx % width), math.floor(zidx / width) + 1
 end
 
+function neighbourCellsCoords(x,y)
+    return { {x=x-1, y=y},
+             {x=x-1, y=y-1},
+             {x=x, y=y-1},
+             {x=x+1, y=y-1},
+             {x=x+1, y=y},
+             {x=x+1, y=y+1},
+             {x=x, y=y+1},
+             {x=x-1, y=y-1} }
+end
+
 local function initWorld(number)
     local result = {}
     math.randomseed( os.time())
     -- empty world (false/dead)
     for x = 1, width do
         for y = 1, height do
-            world[coordsToIndex(x, y)] = false
+            result[coordsToIndex(x, y)] = false
         end
     end
     -- random alive/true cells
     for n = 1, number do
         local x,y = math.random(width), math.random(height)
-        world[coordsToIndex(x, y)] = true
+        result[coordsToIndex(x, y)] = true
     end
     return result
 end
@@ -47,6 +58,7 @@ end
 
 function love.load()
     love.window.setMode(gridSize * width, gridSize * height)
+    love.window.setTitle("Conway's Game of Life")
     world = initWorld(initNumber)
 end
 
