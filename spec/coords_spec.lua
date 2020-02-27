@@ -17,3 +17,17 @@ describe("Coordinates to index and vice-versa", function()
 
     end)
 end)
+
+
+describe("Valid coordinates are within boundaries", function() 
+    it("Should be false when out of the world, true otherwise", function() 
+        assert.True(inBoundaries(1,1))
+        assert.True(inBoundaries(50,50))
+        assert.True(inBoundaries(25,25))
+        assert.False(inBoundaries(0,1))
+        assert.False(inBoundaries(1,0))
+        assert.False(inBoundaries(51,51))
+        assert.False(inBoundaries(1,51))
+        assert.False(inBoundaries(51,1))
+    end)
+end)
